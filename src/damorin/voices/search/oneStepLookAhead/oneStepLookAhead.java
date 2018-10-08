@@ -1,12 +1,14 @@
-package tracks.singlePlayer.simple.sampleonesteplookahead;
+package damorin.voices.search.oneStepLookAhead;
 
 
-import tracks.singlePlayer.tools.Heuristics.SimpleStateHeuristic;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
+import damorin.voices.Opinion;
+import damorin.voices.Voice;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Utils;
+import tracks.singlePlayer.tools.Heuristics.SimpleStateHeuristic;
 
 import java.util.Random;
 
@@ -17,16 +19,14 @@ import java.util.Random;
  * Time: 21:45
  * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
-public class Agent extends AbstractPlayer {
+public class oneStepLookAhead implements Voice {
 
     public double epsilon = 1e-6;
     public Random m_rnd;
 
-    public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+    public oneStepLookAhead(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
         m_rnd = new Random();
-
-
     }
 
     /**
@@ -63,5 +63,8 @@ public class Agent extends AbstractPlayer {
 
     }
 
-
+    @Override
+    public Opinion askOpinion(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+        return new Opinion(this.act(stateObs, elapsedTimer));
+    }
 }

@@ -259,11 +259,10 @@ public class RHEAVoice implements Voice {
         N_ACTIONS = stateObs.getAvailableActions().size() + 1;
         action_mapping = new HashMap<>();
         int k = 0;
-        for (Types.ACTIONS action : stateObs.getAvailableActions()) {
+        for (Types.ACTIONS action : stateObs.getAvailableActions(true)) {
             action_mapping.put(k, action);
             k++;
         }
-        action_mapping.put(k, Types.ACTIONS.ACTION_NIL);
 
         population = new Individual[POPULATION_SIZE];
         nextPop = new Individual[POPULATION_SIZE];

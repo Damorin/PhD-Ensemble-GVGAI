@@ -12,6 +12,7 @@ public class Opinion {
     }
 
     public Types.ACTIONS getAction() {
+//        System.out.println("Action selected: " + this.action);
         return this.action;
     }
 
