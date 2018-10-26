@@ -2,7 +2,6 @@ package damorin.voices.search.oneStepLookAhead;
 
 
 import core.game.StateObservation;
-import core.player.AbstractPlayer;
 import damorin.voices.Opinion;
 import damorin.voices.Voice;
 import ontology.Types;

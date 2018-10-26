@@ -1,5 +1,9 @@
 package tracks.singlePlayer;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 import core.logging.Logger;
@@ -33,7 +37,7 @@ public class EDSTest {
         String[][] games = Utils.readGames(experimentGamesCollection);
 
         //Game settings
-        boolean visuals = true;
+        boolean visuals = false;
         int seed = new Random().nextInt();
 
         // Game and level to play
@@ -41,7 +45,7 @@ public class EDSTest {
         int levelIdx = 0; // level names from 0 to 4 (game_lvlN.txt).
         String game = games[gameIdx][0];
         String gameName = games[gameIdx][1];
-        String level1 = game.replace(gameName, gameName + "_lvl" + levelIdx);
+        String level = game.replace(gameName, gameName + "_lvl" + levelIdx);
 
         String recordActionsFile = null;// "actions_" + games[gameIdx] + "_lvl"
         // + levelIdx + "_" + seed + ".txt";
@@ -49,10 +53,39 @@ public class EDSTest {
         // executed. null if not to save.
 
         // 1. This starts a game, in a level, played by a human.
-//        ArcadeMachine.playOneGame(game, level1, recordActionsFile, seed);
+//        ArcadeMachine.playOneGame(game, level, recordActionsFile, seed);
 
         // 2. This plays a game in a level by the controller.
-        ArcadeMachine.runOneGame(game, level1, visuals, damorin, recordActionsFile, seed, 0);
+        int experimentRuns = 1;
+
+        StringBuilder string = new StringBuilder();
+        String agent = sampleRandomController;
+        string.append("AgentName, GameName, Level, Win, Score, Time\n");
+
+        try {
+            File resultsFile = new File("results_26102018.csv");
+            resultsFile.createNewFile();
+            FileWriter fileWriter = new FileWriter(resultsFile, true);
+            for (int i = 0; i < experimentRuns; i++) {
+                System.out.println("Running game " + i + " of " + gameName);
+                double[] results = ArcadeMachine.runOneGame(game, level, visuals, agent, recordActionsFile, seed, 0);
+                string.append(agent);
+                string.append(',');
+                string.append(gameName);
+                string.append(',');
+                string.append(levelIdx);
+                string.append(',');
+                string.append((int)results[0]); // Win
+                string.append(',');
+                string.append(results[1]); // Score
+                string.append(',');
+                string.append(results[2] + '\n'); // Time
+                fileWriter.write(string.toString());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         // 3. This replays a game from an action file previously recorded
