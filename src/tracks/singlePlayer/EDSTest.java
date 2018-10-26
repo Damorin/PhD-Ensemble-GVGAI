@@ -56,31 +56,22 @@ public class EDSTest {
 //        ArcadeMachine.playOneGame(game, level, recordActionsFile, seed);
 
         // 2. This plays a game in a level by the controller.
-        int experimentRuns = 1;
+        int experimentRuns = 5;
 
-        StringBuilder string = new StringBuilder();
+        String resultsRow = "";
         String agent = sampleRandomController;
-        string.append("AgentName, GameName, Level, Win, Score, Time\n");
+        resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
 
         try {
             File resultsFile = new File("results_26102018.csv");
             resultsFile.createNewFile();
             FileWriter fileWriter = new FileWriter(resultsFile, true);
+            fileWriter.write(resultsRow.toString());
             for (int i = 0; i < experimentRuns; i++) {
                 System.out.println("Running game " + i + " of " + gameName);
                 double[] results = ArcadeMachine.runOneGame(game, level, visuals, agent, recordActionsFile, seed, 0);
-                string.append(agent);
-                string.append(',');
-                string.append(gameName);
-                string.append(',');
-                string.append(levelIdx);
-                string.append(',');
-                string.append((int)results[0]); // Win
-                string.append(',');
-                string.append(results[1]); // Score
-                string.append(',');
-                string.append(results[2] + '\n'); // Time
-                fileWriter.write(string.toString());
+                resultsRow = agent + ',' + gameName + ',' + levelIdx + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                fileWriter.write(resultsRow);
             }
             fileWriter.close();
         } catch (IOException e) {
