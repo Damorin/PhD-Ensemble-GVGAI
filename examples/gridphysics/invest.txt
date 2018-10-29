@@ -1,7 +1,7 @@
 BasicGame key_handler=Pulse square_size=40
     SpriteSet
-        floor > Immovable img=newset/floor2
         avatar > MovingAvatar img=newset/man3
+        floor > Immovable img=newset/floor2
         wall > Immovable img=oryx/wall3 autotiling=True
         coin > Immovable img=oryx/gold1
         switch1 > Immovable img=oryx/rogue
@@ -10,6 +10,7 @@ BasicGame key_handler=Pulse square_size=40
         switch1n > Immovable img=newset/floor2
         switch2n > Immovable img=newset/floor2
         switch3n > Immovable img=newset/floor2
+
     LevelMapping
         w > floor wall
         A > floor avatar
@@ -18,6 +19,7 @@ BasicGame key_handler=Pulse square_size=40
         s > floor switch1
         k > floor switch2
         p > floor switch3
+
     InteractionSet
         avatar wall > stepBack
         coin avatar > killSprite scoreChange=1
@@ -38,5 +40,5 @@ BasicGame key_handler=Pulse square_size=40
         
         
     TerminationSet
-        Timeout limit=1500 win=True
         SpriteCounter stype=avatar limit=0 win=False
+        Timeout limit=1500 win=True

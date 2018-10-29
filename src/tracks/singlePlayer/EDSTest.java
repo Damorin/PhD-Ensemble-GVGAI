@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import core.logging.Logger;
@@ -36,12 +38,19 @@ public class EDSTest {
         String experimentGamesCollection = "examples/eds_experiment_games.csv";
         String[][] games = Utils.readGames(experimentGamesCollection);
 
+        List<String> agents = new ArrayList<>();
+        agents.add(sampleRandomController);
+        agents.add(sampleMCTSController);
+        agents.add(sampleRHEAController);
+        agents.add(sampleOLETSController);
+//        agents.add(damorin);
+
         //Game settings
         boolean visuals = false;
         int seed = new Random().nextInt();
 
         // Game and level to play
-        int gameIdx = 0;
+        int gameIdx = 1;
         int levelIdx = 0; // level names from 0 to 4 (game_lvlN.txt).
         String game = games[gameIdx][0];
         String gameName = games[gameIdx][1];
@@ -56,22 +65,27 @@ public class EDSTest {
 //        ArcadeMachine.playOneGame(game, level, recordActionsFile, seed);
 
         // 2. This plays a game in a level by the controller.
-        int experimentRuns = 5;
+        int experimentRuns = 100;
 
-        String resultsRow = "";
-        String agent = sampleRandomController;
-        resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
+//        String agent = sampleRandomController;
+        String resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
 
         try {
-            File resultsFile = new File("results_26102018.csv");
+            File resultsFile = new File("results_28102018.csv");
             resultsFile.createNewFile();
             FileWriter fileWriter = new FileWriter(resultsFile, true);
-            fileWriter.write(resultsRow.toString());
-            for (int i = 0; i < experimentRuns; i++) {
-                System.out.println("Running game " + i + " of " + gameName);
-                double[] results = ArcadeMachine.runOneGame(game, level, visuals, agent, recordActionsFile, seed, 0);
-                resultsRow = agent + ',' + gameName + ',' + levelIdx + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
-                fileWriter.write(resultsRow);
+            fileWriter.write(resultsRow);
+
+            for (String agentToPlay : agents) {
+                for (int j = 0; j < 1; j++) {
+                    for (int i = 0; i < experimentRuns; i++) {
+                        level = game.replace(gameName, gameName + "_lvl" + j);
+                        System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
+                        double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
+                        resultsRow = agentToPlay + ',' + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                        fileWriter.write(resultsRow);
+                    }
+                }
             }
             fileWriter.close();
         } catch (IOException e) {
