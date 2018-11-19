@@ -1,13 +1,39 @@
 package originalDamorin.voices;
 
-import core.game.StateObservation;
-import originalDamorin.Opinion;
 import tools.ElapsedCpuTimer;
+import originalDamorin.model.WorldInformation;
+import core.game.StateObservation;
 
 /**
- * Created by Damien Anderson on 22/02/2018.
+ * An interface for defining the various Voice implementations.
+ * 
+ * @author Damien Anderson (Damorin)
+ *
  */
 public interface Voice {
 
-    Opinion solve(StateObservation so, ElapsedCpuTimer elapsedTimer);
+	/**
+	 * Decides the best action from the point of view of the voice as well as
+	 * how urgent it thinks it is.
+	 * 
+	 * @return An {@link Opinion}
+	 */
+	Opinion askOpinion(ElapsedCpuTimer elapsedTimer,
+                       WorldInformation worldInformation);
+
+	/**
+	 * Update the current {@link StateObservation}.
+	 * 
+	 * @param stateObs
+	 *            the updated {@link StateObservation}
+	 */
+	void update(StateObservation stateObs);
+
+	/**
+	 * Returns the {@link WorldInformation} object with any updates applied to
+	 * its information.
+	 * 
+	 * @return the updated {@link WorldInformation}
+	 */
+	WorldInformation getUpdatedWorldInformation();
 }

@@ -1,10 +1,11 @@
-package tracks.singlePlayer.advanced.sampleMCTS;
-
-import java.util.Random;
+package Damorin2.voices.sampleMCTS;
 
 import core.game.StateObservation;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,8 +15,6 @@ import tools.ElapsedCpuTimer;
  */
 public class SingleMCTSPlayer
 {
-
-
     /**
      * Root of the tree.
      */
@@ -25,11 +24,10 @@ public class SingleMCTSPlayer
      * Random generator.
      */
     public Random m_rnd;
-
     public int num_actions;
-    public Types.ACTIONS[] actions;
+    public List<Types.ACTIONS> actions;
 
-    public SingleMCTSPlayer(Random a_rnd, int num_actions, Types.ACTIONS[] actions)
+    public SingleMCTSPlayer(Random a_rnd, int num_actions, List<Types.ACTIONS> actions)
     {
         this.num_actions = num_actions;
         this.actions = actions;
@@ -64,4 +62,7 @@ public class SingleMCTSPlayer
         return action;
     }
 
+    public double getActionValue() {
+        return m_root.getActionValue();
+    }
 }

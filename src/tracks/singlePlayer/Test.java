@@ -20,7 +20,7 @@ public class Test {
 		String sampleOneStepController = "tracks.singlePlayer.simple.sampleonesteplookahead.Agent";
 		String sampleFlatMCTSController = "tracks.singlePlayer.simple.greedyTreeSearch.Agent";
 
-		String sampleMCTSController = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
+		String sampleMCTSController = "pessimisticMCTS.Agent";
         String sampleRSController = "tracks.singlePlayer.advanced.sampleRS.Agent";
         String sampleRHEAController = "tracks.singlePlayer.advanced.sampleRHEA.Agent";
 		String sampleOLETSController = "tracks.singlePlayer.advanced.olets.Agent";

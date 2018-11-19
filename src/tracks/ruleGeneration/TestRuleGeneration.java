@@ -8,7 +8,7 @@ import java.util.Random;
 public class TestRuleGeneration {
     public static void main(String[] args) throws Exception {
 	//Available Controllers
-	String sampleMCTSController = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
+	String sampleMCTSController = "pessimisticMCTS.Agent";
 
         // Available Rule Generator
         String randomRuleGenerator = "tracks.ruleGeneration.randomRuleGenerator.RuleGenerator";

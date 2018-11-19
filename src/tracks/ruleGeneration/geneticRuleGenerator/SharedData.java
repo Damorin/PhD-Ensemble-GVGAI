@@ -70,7 +70,7 @@ public class SharedData {
 	/**
 	 * The name of a naive agent
 	 */
-	public static final String NAIVE_AGENT_NAME = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
+	public static final String NAIVE_AGENT_NAME = "pessimisticMCTS.Agent";
 	/**
 	 * The name of the random agent
 	 */

@@ -1,4 +1,4 @@
-package tracks.singlePlayer.advanced.sampleMCTS;
+package pessimisticMCTS;
 
 import java.util.ArrayList;
 import java.util.Random;

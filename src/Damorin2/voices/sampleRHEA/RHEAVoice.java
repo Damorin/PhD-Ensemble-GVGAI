@@ -1,10 +1,10 @@
-package originalDamorin.voices.sampleRHEA;
+package Damorin2.voices.sampleRHEA;
 
 import core.game.StateObservation;
 import ontology.Types;
-import originalDamorin.Agent;
-import originalDamorin.Opinion;
-import originalDamorin.voices.Voice;
+import Damorin2.Agent;
+import Damorin2.Opinion;
+import Damorin2.voices.Voice;
 import tools.ElapsedCpuTimer;
 import tracks.singlePlayer.tools.Heuristics.StateHeuristic;
 import tracks.singlePlayer.tools.Heuristics.WinScoreHeuristic;

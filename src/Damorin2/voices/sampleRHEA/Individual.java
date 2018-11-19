@@ -1,4 +1,4 @@
-package originalDamorin.voices.sampleRHEA;
+package Damorin2.voices.sampleRHEA;
 
 import java.util.Random;
 

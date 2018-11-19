@@ -1,13 +1,13 @@
-package originalDamorin.arbiter;
+package Damorin2.voices;
 
 import core.game.StateObservation;
-import originalDamorin.Opinion;
+import Damorin2.Opinion;
 import tools.ElapsedCpuTimer;
 
 /**
- * Created by Damorin on 03/03/2018.
+ * Created by Damien Anderson on 22/02/2018.
  */
-public interface Arbiter {
+public interface Voice {
 
     Opinion solve(StateObservation so, ElapsedCpuTimer elapsedTimer);
 }

@@ -1,8 +1,8 @@
-package originalDamorin.voices.GoalFinder;
+package Damorin2.voices.GoalFinder;
 
 import core.game.StateObservation;
-import originalDamorin.Opinion;
-import originalDamorin.voices.Voice;
+import Damorin2.Opinion;
+import Damorin2.voices.Voice;
 import tools.ElapsedCpuTimer;
 import tools.pathfinder.AStar;
 import tools.pathfinder.PathFinder;

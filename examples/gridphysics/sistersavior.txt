@@ -1,7 +1,7 @@
 BasicGame square_size=30
 	SpriteSet
     	floor > Immovable img=newset/floor5
-    	plas > Missile limit=5 singleton=False img=oryx/cspell3
+    	plas > Missile singleton=False img=oryx/cspell3
     	wall > Immovable autotiling=true img=oryx/wall3
     	movable >
       		avatar  > ShootAvatar stype=plas frameRate=8 img=newset/man1

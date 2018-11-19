@@ -1,9 +1,9 @@
-package originalDamorin.arbiter;
+package Damorin2.arbiter;
 
 import core.game.StateObservation;
-import originalDamorin.Opinion;
-import originalDamorin.voices.Voice;
-import originalDamorin.voices.sampleMCTS.MCTSVoice;
+import Damorin2.Opinion;
+import Damorin2.voices.Voice;
+import Damorin2.voices.sampleMCTS.MCTSVoice;
 import tools.ElapsedCpuTimer;
 
 import java.util.ArrayList;

@@ -23,12 +23,13 @@ public class EDSTest {
         // Available sample agents:
         String sampleRandomController = "tracks.singlePlayer.simple.sampleRandom.Agent";
         String sampleFlatMCTSController = "tracks.singlePlayer.simple.greedyTreeSearch.Agent";
-        String sampleMCTSController = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
+        String sampleMCTSController = "pessimisticMCTS.Agent";
         String sampleRSController = "tracks.singlePlayer.advanced.sampleRS.Agent";
         String sampleRHEAController = "tracks.singlePlayer.advanced.sampleRHEA.Agent";
         String sampleOLETSController = "tracks.singlePlayer.advanced.olets.Agent";
 
         // My agents
+        String pessimisticMCTS = "pessimisticMCTS.Agent";
         String originalDamorin = "originalDamorin.Agent";
         String damorin = "damorin.Agent";
 
@@ -39,18 +40,20 @@ public class EDSTest {
         String[][] games = Utils.readGames(experimentGamesCollection);
 
         List<String> agents = new ArrayList<>();
-        agents.add(sampleRandomController);
-        agents.add(sampleMCTSController);
-        agents.add(sampleRHEAController);
-        agents.add(sampleOLETSController);
+//        agents.add(sampleRandomController);
+//        agents.add(sampleMCTSController);
+//        agents.add(sampleRHEAController);
+//        agents.add(sampleOLETSController);
 //        agents.add(damorin);
+        agents.add(originalDamorin);
+        agents.add(pessimisticMCTS);
 
         //Game settings
         boolean visuals = false;
         int seed = new Random().nextInt();
 
         // Game and level to play
-        int gameIdx = 1;
+        int gameIdx = 9;
         int levelIdx = 0; // level names from 0 to 4 (game_lvlN.txt).
         String game = games[gameIdx][0];
         String gameName = games[gameIdx][1];
@@ -77,7 +80,7 @@ public class EDSTest {
             fileWriter.write(resultsRow);
 
             for (String agentToPlay : agents) {
-                for (int j = 0; j < 1; j++) {
+                for (int j = 0; j < 5; j++) {
                     for (int i = 0; i < experimentRuns; i++) {
                         level = game.replace(gameName, gameName + "_lvl" + j);
                         System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);

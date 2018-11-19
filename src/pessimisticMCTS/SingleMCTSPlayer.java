@@ -1,11 +1,10 @@
-package originalDamorin.voices.sampleMCTS;
+package pessimisticMCTS;
+
+import java.util.Random;
 
 import core.game.StateObservation;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,6 +14,8 @@ import java.util.Random;
  */
 public class SingleMCTSPlayer
 {
+
+
     /**
      * Root of the tree.
      */
@@ -24,10 +25,11 @@ public class SingleMCTSPlayer
      * Random generator.
      */
     public Random m_rnd;
-    public int num_actions;
-    public List<Types.ACTIONS> actions;
 
-    public SingleMCTSPlayer(Random a_rnd, int num_actions, List<Types.ACTIONS> actions)
+    public int num_actions;
+    public Types.ACTIONS[] actions;
+
+    public SingleMCTSPlayer(Random a_rnd, int num_actions, Types.ACTIONS[] actions)
     {
         this.num_actions = num_actions;
         this.actions = actions;
@@ -57,12 +59,9 @@ public class SingleMCTSPlayer
         m_root.mctsSearch(elapsedTimer);
 
         //Determine the best action to take and return it.
-        int action = m_root.mostVisitedAction();
+        int action = m_root.leastVisitedAction();
         //int action = m_root.bestAction();
         return action;
     }
 
-    public double getActionValue() {
-        return m_root.getActionValue();
-    }
 }

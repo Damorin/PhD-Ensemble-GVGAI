@@ -1,9 +1,9 @@
-package originalDamorin.voices.sampleMCTS;
+package Damorin2.voices.sampleMCTS;
 
 import core.game.StateObservation;
-import originalDamorin.Agent;
-import originalDamorin.Opinion;
-import originalDamorin.voices.Voice;
+import Damorin2.Agent;
+import Damorin2.Opinion;
+import Damorin2.voices.Voice;
 import tools.ElapsedCpuTimer;
 
 import java.util.Random;

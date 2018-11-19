@@ -1,16 +1,19 @@
-package tracks.singlePlayer.advanced.sampleMCTS;
-
-import java.util.Random;
+package Damorin2.voices.sampleMCTS;
 
 import core.game.StateObservation;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Utils;
 
+import java.util.List;
+import java.util.Random;
+
 public class SingleTreeNode
 {
     private final double HUGE_NEGATIVE = -10000000.0;
     private final double HUGE_POSITIVE =  10000000.0;
+
+    private double bestValue;
     public double epsilon = 1e-6;
     public double egreedyEpsilon = 0.05;
     public SingleTreeNode parent;
@@ -23,17 +26,17 @@ public class SingleTreeNode
     public int childIdx;
 
     public int num_actions;
-    Types.ACTIONS[] actions;
+    List<Types.ACTIONS> actions;
     public int ROLLOUT_DEPTH = 10;
     public double K = Math.sqrt(2);
 
     public StateObservation rootState;
 
-    public SingleTreeNode(Random rnd, int num_actions, Types.ACTIONS[] actions) {
+    public SingleTreeNode(Random rnd, int num_actions, List<Types.ACTIONS> actions) {
         this(null, -1, rnd, num_actions, actions);
     }
 
-    public SingleTreeNode(SingleTreeNode parent, int childIdx, Random rnd, int num_actions, Types.ACTIONS[] actions) {
+    public SingleTreeNode(SingleTreeNode parent, int childIdx, Random rnd, int num_actions, List<Types.ACTIONS> actions) {
         this.parent = parent;
         this.m_rnd = rnd;
         this.num_actions = num_actions;
@@ -57,7 +60,7 @@ public class SingleTreeNode
 
         int remainingLimit = 5;
         while(remaining > 2*avgTimeTaken && remaining > remainingLimit){
-        //while(numIters < Agent.MCTS_ITERATIONS){
+        //while(numIters < search.MCTS_ITERATIONS){
 
             StateObservation state = rootState.copy();
 
@@ -107,7 +110,7 @@ public class SingleTreeNode
         }
 
         //Roll the state
-        state.advance(actions[bestAction]);
+        state.advance(actions.get(bestAction));
 
         SingleTreeNode tn = new SingleTreeNode(this,bestAction,this.m_rnd,num_actions, actions);
         children[bestAction] = tn;
@@ -144,7 +147,7 @@ public class SingleTreeNode
         }
 
         //Roll the state:
-        state.advance(actions[selected.childIdx]);
+        state.advance(actions.get(selected.childIdx));
 
         return selected;
     }
@@ -157,7 +160,7 @@ public class SingleTreeNode
         while (!finishRollout(state,thisDepth)) {
 
             int action = m_rnd.nextInt(num_actions);
-            state.advance(actions[action]);
+            state.advance(actions.get(action));
             thisDepth++;
         }
 
@@ -220,7 +223,7 @@ public class SingleTreeNode
 
     public int mostVisitedAction() {
         int selected = -1;
-        double bestValue = -Double.MAX_VALUE;
+        bestValue = -Double.MAX_VALUE;
         boolean allEqual = true;
         double first = -1;
 
@@ -259,7 +262,7 @@ public class SingleTreeNode
     public int bestAction()
     {
         int selected = -1;
-        double bestValue = -Double.MAX_VALUE;
+        bestValue = -Double.MAX_VALUE;
 
         for (int i=0; i<children.length; i++) {
 
@@ -292,5 +295,9 @@ public class SingleTreeNode
         }
 
         return false;
+    }
+
+    public double getActionValue() {
+        return this.bestValue;
     }
 }
