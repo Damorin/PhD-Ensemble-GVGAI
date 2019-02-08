@@ -31,7 +31,9 @@ public class EDSTest {
         // My agents
         String pessimisticMCTS = "pessimisticMCTS.Agent";
         String originalDamorin = "originalDamorin.Agent";
-        String damorin = "damorin.Agent";
+        String edsRMCTSPair = "EDS_R_MCTSPair.Agent";
+        String edsROletsMCTS = "EDS_R_OLETSMCTS.Agent";
+        String edsRHEAMCTS = "EDS_R_RHEAMCTS.Agent";
 
         //Load available games
         String allGamesCollection = "examples/all_games_sp.csv";
@@ -44,22 +46,26 @@ public class EDSTest {
 //        agents.add(sampleMCTSController);
 //        agents.add(sampleRHEAController);
 //        agents.add(sampleOLETSController);
-//        agents.add(damorin);
-        agents.add(originalDamorin);
-        agents.add(pessimisticMCTS);
+//        agents.add(originalDamorin);
+//        agents.add(pessimisticMCTS);
+//        agents.add(edsRMCTSPair);
+        agents.add(edsRHEAMCTS);
+//        agents.add(edsROletsMCTS);
 
         //Game settings
         boolean visuals = false;
         int seed = new Random().nextInt();
 
         // Game and level to play
-        int gameIdx = 9;
-        int levelIdx = 0; // level names from 0 to 4 (game_lvlN.txt).
+        int gameIdx = 0;
+        int levelIdx = 4; // level names from 0 to 4 (game_lvlN.txt).
         String game = games[gameIdx][0];
         String gameName = games[gameIdx][1];
         String level = game.replace(gameName, gameName + "_lvl" + levelIdx);
 
+
         String recordActionsFile = null;// "actions_" + games[gameIdx] + "_lvl"
+//        double[] results = ArcadeMachine.runOneGame(game, level, visuals, originalDamorin, recordActionsFile, seed, 0);
         // + levelIdx + "_" + seed + ".txt";
         // where to record the actions
         // executed. null if not to save.
@@ -80,7 +86,7 @@ public class EDSTest {
             fileWriter.write(resultsRow);
 
             for (String agentToPlay : agents) {
-                for (int j = 0; j < 5; j++) {
+                for (int j = 4; j < 5; j++) {
                     for (int i = 0; i < experimentRuns; i++) {
                         level = game.replace(gameName, gameName + "_lvl" + j);
                         System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
