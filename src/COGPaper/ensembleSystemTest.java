@@ -1,5 +1,6 @@
 package COGPaper;
 
+import javafx.scene.shape.Arc;
 import tools.Utils;
 import tracks.ArcadeMachine;
 
@@ -75,32 +76,37 @@ public class ensembleSystemTest {
         // CONTROLLERS
 
         List<String> agents = new ArrayList<>();
-        agents.add("tracks.singlePlayer.advanced.olets.Agent");
-        agents.add("tracks.singlePlayer.simple.sampleonesteplookahead.Agent");
-        agents.add("tracks.singlePlayer.advanced.sampleRHEA.Agent");
-        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
-        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
-        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
+//        agents.add("tracks.singlePlayer.advanced.olets.Agent");
+//        agents.add("tracks.singlePlayer.simple.sampleonesteplookahead.Agent");
+//        agents.add("tracks.singlePlayer.advanced.sampleRHEA.Agent");
+//        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
+//        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
+//        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
         agents.add("COGPaper.ensemble_system.Agent");
 
         // OTHER SETTINGS
         boolean visuals = true;
         int seed = new Random().nextInt();
 
-        int n_games = 100;
-
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-//        String game = games[0][0];
-//        String gameName = games[0][1];
-//        String level = game.replace(gameName, gameName + "_lvl" + 0);
+        String game = games[0][0];
+        String gameName = games[0][1];
+        String level = game.replace(gameName, gameName + "_lvl" + 0);
 //
 //        ArcadeMachine.runOneGame(game, level, visuals, agents.get(6), null, seed, 0);
+
+        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
 
 
         // EXPERIMENT
 
-        int experimentRuns = 100;
+//        experiment(games, agents, visuals, seed);
+
+    }
+
+    private static void experiment(String[][] games, List<String> agents, boolean visuals, int seed) {
+        int experimentRuns = 30;
         String recordActionsFile = null;
         String level = null;
 
@@ -113,7 +119,7 @@ public class ensembleSystemTest {
             fileWriter.write(resultsRow);
 
             for (int gameId = 0; gameId < games.length; gameId++) {
-                String game = games[game_id][0];
+                String game = games[gameId][0];
                 String gameName = games[gameId][1];
                 for (String agentToPlay : agents) {
                     for (int j = 0; j < 5; j++) {
@@ -131,6 +137,5 @@ public class ensembleSystemTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

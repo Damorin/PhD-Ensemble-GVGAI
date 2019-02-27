@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class CentralArbitrator {
 
-    public static final int ANALYSIS_TIME = 12; // Constant to define the amount of analysis time per voice
+    public static final int ANALYSIS_TIME = 9; // Constant to define the amount of analysis time per voice
     private List<Voice> voices;
     private List<Opinion> opinions;
     private Random randomGenerator = new Random();
@@ -33,13 +33,15 @@ public class CentralArbitrator {
 
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
         opinions.clear();
+        int voiceNumber = 1;
         for (Voice voice : voices) {
-            elapsedTimer.setMaxTimeMillis(ANALYSIS_TIME);
+            elapsedTimer.setMaxTimeMillis(ANALYSIS_TIME * voiceNumber);
             this.opinions.add(voice.askOpinion(stateObs, elapsedTimer, ANALYSIS_TIME));
+            voiceNumber++;
         }
         return selectHighestValueOpinion().getAction();
 //        return selectRandomOpinion().getAction();
-//        return selectDemocraticOption();
+//        return selectDemocraticOption().getAction();
     }
 
     private Opinion selectHighestValueOpinion() {
@@ -61,16 +63,18 @@ public class CentralArbitrator {
         if (bestActions.size() > 1) {
             return bestActions.get(randomGenerator.nextInt(bestActions.size()));
         }
+        System.out.println(bestOpinion.getName());
         return bestOpinion;
     }
 
     private Opinion selectDemocraticOption() {
-        List<Opinion> bestActions = new ArrayList<>();
         Map<Types.ACTIONS, Integer> actionFrequencies = new HashMap<>();
         Map.Entry<Types.ACTIONS, Integer> maxEntry = null;
 
+
         for (Opinion opinion : this.opinions) {
             Types.ACTIONS action = opinion.getAction();
+            actionFrequencies.putIfAbsent(action, 0);
             actionFrequencies.put(action, actionFrequencies.get(action) + 1);
         }
 
@@ -80,7 +84,7 @@ public class CentralArbitrator {
             }
         }
 
-        return new Opinion(maxEntry.getKey(), 0);
+        return new Opinion(maxEntry.getKey(), 0, "Us");
     }
 
     private Opinion selectRandomOpinion() {

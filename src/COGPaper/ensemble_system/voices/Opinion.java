@@ -11,10 +11,12 @@ public class Opinion {
 
     private Types.ACTIONS action;
     private double estimatedValue;
+    private String name;
 
-    public Opinion(Types.ACTIONS action, double estimatedValue) {
+    public Opinion(Types.ACTIONS action, double estimatedValue, String name) {
         this.action = action;
         this.estimatedValue = estimatedValue;
+        this.name = name;
     }
 
     public Types.ACTIONS getAction() {
@@ -23,6 +25,10 @@ public class Opinion {
 
     public double getEstimatedValue() {
         return this.estimatedValue;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
 }

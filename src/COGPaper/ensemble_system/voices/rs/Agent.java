@@ -195,6 +195,6 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
     @Override
     public Opinion askOpinion(StateObservation stateObs, ElapsedCpuTimer elapsedTimer, int analysisTime) {
         Types.ACTIONS action = this.act(stateObs, elapsedTimer);
-        return new Opinion(action, this.heuristicValue);
+        return new Opinion(action, this.heuristicValue, getHeuristicName());
     }
 }

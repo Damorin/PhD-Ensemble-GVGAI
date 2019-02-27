@@ -59,7 +59,7 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
      * @return An action for the current state
      */
     public Opinion askOpinion(StateObservation stateObs, ElapsedCpuTimer elapsedTimer, int analysisTime) {
-        return new Opinion(this.act(stateObs, elapsedTimer), mctsPlayer.value);
+        return new Opinion(this.act(stateObs, elapsedTimer), mctsPlayer.value, getHeuristicName());
 
     }
 

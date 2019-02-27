@@ -229,7 +229,7 @@ public class SingleTreeNode {
             //If all are equal, we opt to choose for the one with the best Q.
             selected = bestAction();
         }
-        return new Opinion(actions[selected], bestValue);
+        return new Opinion(actions[selected], bestValue, "");
     }
 
     public int bestAction() {
