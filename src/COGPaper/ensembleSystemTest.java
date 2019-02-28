@@ -90,8 +90,8 @@ public class ensembleSystemTest {
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-        String game = games[0][0];
-        String gameName = games[0][1];
+        String game = games[10][0];
+        String gameName = games[10][1];
         String level = game.replace(gameName, gameName + "_lvl" + 0);
 //
 //        ArcadeMachine.runOneGame(game, level, visuals, agents.get(6), null, seed, 0);
