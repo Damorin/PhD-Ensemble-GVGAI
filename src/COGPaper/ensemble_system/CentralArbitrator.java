@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class CentralArbitrator {
 
-    public static final int ANALYSIS_TIME = 9; // Constant to define the amount of analysis time per voice
+    public static final int ANALYSIS_TIME = 19; // Constant to define the amount of analysis time per voice
     private List<Voice> voices;
     private List<Opinion> opinions;
     private Random randomGenerator = new Random();
@@ -63,7 +63,7 @@ public class CentralArbitrator {
         if (bestActions.size() > 1) {
             return bestActions.get(randomGenerator.nextInt(bestActions.size()));
         }
-        System.out.println(bestOpinion.getName());
+//        System.out.println(bestOpinion.getName());
         return bestOpinion;
     }
 

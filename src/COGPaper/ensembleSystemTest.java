@@ -23,7 +23,7 @@ public class ensembleSystemTest {
         // PATHS
         String gamesPath = "examples/gridphysics/";
         String controllersPath = "COGPaper.";
-        String experimentGamesCollection = "examples/eds_heuristics_experiment_games.csv";
+        String experimentGamesCollection = "examples/eds_heuristic_experiment_games.csv";
 
         // EXPERIMENT SETUP
 
@@ -85,23 +85,23 @@ public class ensembleSystemTest {
         agents.add("COGPaper.ensemble_system.Agent");
 
         // OTHER SETTINGS
-        boolean visuals = true;
+        boolean visuals = false;
         int seed = new Random().nextInt();
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-        String game = games[10][0];
-        String gameName = games[10][1];
-        String level = game.replace(gameName, gameName + "_lvl" + 0);
+//        String game = games[10][0];
+//        String gameName = games[10][1];
+//        String level = game.replace(gameName, gameName + "_lvl" + 0);
 //
 //        ArcadeMachine.runOneGame(game, level, visuals, agents.get(6), null, seed, 0);
 
-        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
+//        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
 
 
         // EXPERIMENT
 
-//        experiment(games, agents, visuals, seed);
+        experiment(games, agents, visuals, seed);
 
     }
 
@@ -113,7 +113,7 @@ public class ensembleSystemTest {
         String resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
 
         try {
-            File resultsFile = new File("COGPaper_results_17022019.csv");
+            File resultsFile = new File("COGPaper_results_OLETS.csv");
             resultsFile.createNewFile();
             FileWriter fileWriter = new FileWriter(resultsFile, true);
             fileWriter.write(resultsRow);
@@ -127,7 +127,7 @@ public class ensembleSystemTest {
                             level = game.replace(gameName, gameName + "_lvl" + j);
                             System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
                             double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
-                            resultsRow = agentToPlay + ',' + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                            resultsRow = agentToPlay + "OLETSExpScoreHighVal," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
                             fileWriter.write(resultsRow);
                         }
                     }
