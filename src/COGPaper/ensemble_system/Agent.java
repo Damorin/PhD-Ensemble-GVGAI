@@ -14,7 +14,8 @@ import tools.ElapsedCpuTimer;
  */
 public class Agent extends AbstractPlayer {
 
-    private CentralArbitrator ensemble = new CentralArbitrator();
+//    private CentralArbitrator ensemble = new CentralArbitrator();
+    private AsyncArbitrator ensemble = new AsyncArbitrator();
 
     public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
         ensemble.setAvailableActions(stateObs.getAvailableActions(true));
