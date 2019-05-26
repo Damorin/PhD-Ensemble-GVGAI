@@ -1,6 +1,5 @@
 package COGPaper;
 
-import javafx.scene.shape.Arc;
 import tools.Utils;
 import tracks.ArcadeMachine;
 
@@ -82,7 +81,11 @@ public class ensembleSystemTest {
 //        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
 //        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
 //        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
-        agents.add("COGPaper.ensemble_system.Agent");
+//        agents.add("COGPaper.ensemble_system.Agent");
+        agents.add("YOLOBOT.Agent");
+        agents.add("adrienctx.Agent");
+//        agents.add("ICELab.Agent");
+        agents.add("YBCriber.Agent");
 
         // OTHER SETTINGS
         boolean visuals = false;
@@ -106,19 +109,19 @@ public class ensembleSystemTest {
     }
 
     private static void experiment(String[][] games, List<String> agents, boolean visuals, int seed) {
-        int experimentRuns = 30;
+        int experimentRuns = 50;
         String recordActionsFile = null;
         String level = null;
 
         String resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
 
         try {
-            File resultsFile = new File("COGPaper_results_OLETS.csv");
+            File resultsFile = new File("PHD_Experiment_Results.csv");
             resultsFile.createNewFile();
             FileWriter fileWriter = new FileWriter(resultsFile, true);
             fileWriter.write(resultsRow);
 
-            for (int gameId = 0; gameId < games.length; gameId++) {
+            for (int gameId = 14; gameId < games.length; gameId++) { // Need to redo sistersaviour with icelab onwards ICELab onwards Whackamole Chopper
                 String game = games[gameId][0];
                 String gameName = games[gameId][1];
                 for (String agentToPlay : agents) {
@@ -127,7 +130,7 @@ public class ensembleSystemTest {
                             level = game.replace(gameName, gameName + "_lvl" + j);
                             System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
                             double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
-                            resultsRow = agentToPlay + "OLETSExpScoreHighVal," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                            resultsRow = agentToPlay + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
                             fileWriter.write(resultsRow);
                         }
                     }

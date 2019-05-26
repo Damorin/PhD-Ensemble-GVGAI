@@ -14,15 +14,15 @@ import tools.ElapsedCpuTimer;
  */
 public class Agent extends AbstractPlayer {
 
-//    private CentralArbitrator ensemble = new CentralArbitrator();
-    private AsyncArbitrator ensemble = new AsyncArbitrator();
+    private CentralArbitrator ensemble = new CentralArbitrator();
+//    private AsyncArbitrator ensemble = new AsyncArbitrator();
 
     public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
         ensemble.setAvailableActions(stateObs.getAvailableActions(true));
         ensemble.addVoice((new COGPaper.ensemble_system.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic")));
-        ensemble.addVoice((new COGPaper.ensemble_system.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeExplorationHeuristic")));
+        ensemble.addVoice((new COGPaper.ensemble_system.voices.rs.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeExplorationHeuristic")));
 //        ensemble.addVoice((new COGPaper.ensemble_system.voices.rs.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeDiscoveryHeuristic")));
-//        ensemble.addVoice((new COGPaper.ensemble_system.voices.mcts.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeEstimationHeuristic")));
+//        ensemble.addVoice((new COGPaper.ensemble_system.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeEstimationHeuristic")));
     }
 
     @Override

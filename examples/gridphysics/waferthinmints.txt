@@ -10,7 +10,7 @@ BasicGame
         
     InteractionSet
         moving wall > stepBack
-        wfm avatar > collectResource changeScore=1
+        wfm avatar > collectResource scoreChange=1
         avatar wfm > killIfHasMore limit=11 resource=wfm
         wfm avatar > killSprite
     
