@@ -6,7 +6,8 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 
 public interface Arbitrator {
-    void addVoice(Voice voice);
 
+    void addVoice(Voice voice);
     Types.ACTIONS makeDecision(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer);
+
 }

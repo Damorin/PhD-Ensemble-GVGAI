@@ -64,14 +64,6 @@ public class ensembleSystemTest {
 //
 //        };
 
-        //Game and level to play
-        int game_id = 0;//Integer.parseInt(args[1]); //2
-        int level_idx = 0; // This experiment runs just for the first level
-
-//        String gameName = games_experiment[game_id];
-//        String game = gamesPath + gameName + ".txt";
-//        String level1 = gamesPath + gameName + "_lvl" + level_idx + ".txt";
-
         // CONTROLLERS
 
         List<String> agents = new ArrayList<>();
@@ -82,29 +74,29 @@ public class ensembleSystemTest {
 //        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
 //        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
 //        agents.add("COGPaper.ensemble_system.Agent");
-        agents.add("YOLOBOT.Agent");
-        agents.add("adrienctx.Agent");
+//        agents.add("YOLOBOT.Agent");
+//        agents.add("adrienctx.Agent");
 //        agents.add("ICELab.Agent");
-        agents.add("YBCriber.Agent");
+//        agents.add("YBCriber.Agent");
 
+        agents.add("EDS_AllActions.Agent");
         // OTHER SETTINGS
-        boolean visuals = false;
+        boolean visuals = true;
         int seed = new Random().nextInt();
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-//        String game = games[10][0];
-//        String gameName = games[10][1];
-//        String level = game.replace(gameName, gameName + "_lvl" + 0);
+        String game = games[10][0];
+        String gameName = games[10][1];
+        String level = game.replace(gameName, gameName + "_lvl" + 0);
 //
-//        ArcadeMachine.runOneGame(game, level, visuals, agents.get(6), null, seed, 0);
 
-//        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
+        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
 
 
         // EXPERIMENT
 
-        experiment(games, agents, visuals, seed);
+//        experiment(games, agents, visuals, seed);
 
     }
 
