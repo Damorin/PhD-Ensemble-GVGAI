@@ -17,6 +17,7 @@ import java.util.Map;
 public class GeneralArbitrator implements Arbitrator {
 
     private int ANALYSIS_TIME; // Constant to define the amount of analysis time per voice
+    private boolean DEBUG = true;
 
     private List<Voice> voices = new ArrayList<>();
     private List<Opinion> opinions = new ArrayList<>();
@@ -45,7 +46,14 @@ public class GeneralArbitrator implements Arbitrator {
             voiceNumber++;
         }
 
+        if (DEBUG) {
+            System.out.println("Opinions before combining: " + opinions.size());
+        }
         opinions = combineOpinions();
+
+        if(DEBUG) {
+            System.out.println("Opinions after combining: " + opinions.size());
+        }
 
         return policy.selectAction(opinions);
     }
