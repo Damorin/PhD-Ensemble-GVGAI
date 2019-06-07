@@ -1,16 +1,18 @@
 package EDS_AllActions.voices.olets.withoutHeuristics;
 
+import EDS_AllActions.voices.Opinion;
 import core.game.StateObservation;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Vector2d;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Code written by Adrien Couetoux, acouetoux@ulg.ac.be.
  * Date: 15/12/2015
- *
  * @author Adrien Couëtoux
  */
 
@@ -57,8 +59,6 @@ public class SingleMCTSPlayer {
      */
     private Agent agent;
 
-    public double value;
-
     /**
      * Public constructor with a sampleRandom generator object.
      *
@@ -102,27 +102,30 @@ public class SingleMCTSPlayer {
     }
 
     /**
-     * Runs MCTS to decide the action to take. It does not reset the tree.
+     * Runs search to decide the action to take. It does not reset the tree.
      *
      * @param elapsedTimer Timer when the action returned is due.
      * @return the action to execute in the game.
      */
-    public int run(ElapsedCpuTimer elapsedTimer) {
+    public List<Opinion> run(ElapsedCpuTimer elapsedTimer) {
         mctsSearch(elapsedTimer, this.rootObservation);    //Do the search within the available time.
-        this.value = rootNode.totValue;
         int action = rootNode.mostVisitedAction();  //Determine the best action to take and return it.
         salvagedTree = rootNode.children[action];
         salvagedTree.parent = null;
         salvagedTree.setNodeDepth(0);
         salvagedTree.refreshTree();
-        return action;
+        List<Opinion> opinions = new ArrayList<>();
+        for(SingleTreeNode node : rootNode.children) {
+            opinions.add(new Opinion(agent.actions[node.getActionIndex()], node.totValue));
+        }
+        return opinions;
     }
 
     /**
      * Builds the search tree, given a time budget and a state observation
      *
-     * @param elapsedTimer    Timer when the action returned is due
-     * @param rootObservation Initial state observation
+     * @param elapsedTimer  Timer when the action returned is due
+     * @param rootObservation  Initial state observation
      */
     private void mctsSearch(ElapsedCpuTimer elapsedTimer, StateObservation rootObservation) {
 
@@ -131,7 +134,6 @@ public class SingleMCTSPlayer {
         long remaining = elapsedTimer.remainingTimeMillis();
         int numIters = 0;
         StateObservation tempState;
-        agent.getAgentHeuristic().initHeuristicAccumulation();
 
         int remainingLimit = 5;
         while (remaining > 2 * avgTimeTaken && remaining > remainingLimit) {
@@ -157,9 +159,8 @@ public class SingleMCTSPlayer {
 
     /**
      * The policy that navigates through the tree.
-     *
-     * @param currentObservation the initial state observation, used as the root node
-     * @return the tree node where the tree navigation has ended (it can be a final node/state, or just the node where the policy exited the tree.
+     * @param currentObservation    the initial state observation, used as the root node
+     * @return  the tree node where the tree navigation has ended (it can be a final node/state, or just the node where the policy exited the tree.
      */
     private SingleTreeNode treePolicy(StateObservation currentObservation) {
         SingleTreeNode currentNode = rootNode;
@@ -168,12 +169,13 @@ public class SingleMCTSPlayer {
         int i;
         boolean stateFound;
 
-        while (!(currentObservation.isGameOver())) {
+        while (!(currentObservation.isGameOver()))
+        {
             if (currentNode.notFullyExpanded()) {
                 return expand(currentNode, currentObservation);
             } else {
                 SingleTreeNode next = currentNode.selectChild();
-                advanceState(currentObservation, agent.actions[next.getActionIndex()]);
+                currentObservation.advance(agent.actions[next.getActionIndex()]);
 
                 currentNode = next;
                 if (currentNode.getNbGenerated() == 0) {
@@ -200,10 +202,9 @@ public class SingleMCTSPlayer {
 
     /**
      * Expands the tree, from a given node, and given a certain state observation
-     *
-     * @param fatherNode         the node from which we are expanding the tree
-     * @param currentObservation the state observation that we are currently in (for *this* particular simulation)
-     * @return the new tree node that resulted from the expansion
+     * @param fatherNode    the node from which we are expanding the tree
+     * @param currentObservation   the state observation that we are currently in (for *this* particular simulation)
+     * @return  the new tree node that resulted from the expansion
      */
     private SingleTreeNode expand(SingleTreeNode fatherNode, StateObservation currentObservation) {
         int bestAction = 0;
@@ -216,7 +217,7 @@ public class SingleMCTSPlayer {
                 bestValue = x;
             }
         }
-        advanceState(currentObservation, agent.actions[bestAction]);
+        currentObservation.advance(agent.actions[bestAction]);
         int newDepth = fatherNode.nodeDepth + 1;
         double _tabooBias = 0.0;
         int i = 0;
@@ -238,26 +239,38 @@ public class SingleMCTSPlayer {
 
     /**
      * Computes the value associated with a state observation and a tree depth
-     *
-     * @param a_gameState the state observation that is evaluated
-     * @param treeDepth   the depth in the tree where this evaluation is made
-     * @return the value of the state
+     * @param a_gameState   the state observation that is evaluated
+     * @param treeDepth    the depth in the tree where this evaluation is made
+     * @return  the value of the state
      */
     private double value(StateObservation a_gameState, int treeDepth) {
-        return agent.getAgentHeuristic().endHeuristicAccumulation(a_gameState);
+
+        boolean gameOver = a_gameState.isGameOver();
+        Types.WINNER win = a_gameState.getGameWinner();
+        double rawScore = a_gameState.getGameScore();
+
+        if (gameOver && win == Types.WINNER.PLAYER_LOSES) {
+            return (rawScore - (2000.0 / Math.pow(1.0 + treeDepth, 2)) * (1.0 + Math.abs(rawScore)));
+        }
+
+        if (gameOver && win == Types.WINNER.PLAYER_WINS)
+            return (rawScore + 100.0 * (1.0 + Math.abs(rawScore)));
+
+        return rawScore;
     }
 
     /**
      * Plays random moves until the simulation ends (either because we do MCTSRolloutDepth moves, or the game ends)
      *
-     * @param _currentObservation the initial state observation
-     * @return the final value after playing the random moves
+     * @param _currentObservation   the initial state observation
+     * @return  the final value after playing the random moves
      */
-    public double rollOut(StateObservation _currentObservation) {
+    public double rollOut(StateObservation _currentObservation)
+    {
         int rolloutDepth = 0;
-        while (!finishRollout(_currentObservation, rolloutDepth)) {
+        while (!finishRollout(_currentObservation,rolloutDepth)) {
             int action = randomGenerator.nextInt(agent.NUM_ACTIONS);
-            advanceState(_currentObservation, agent.actions[action]);
+            _currentObservation.advance(agent.actions[action]);
             rolloutDepth++;
         }
 
@@ -266,20 +279,15 @@ public class SingleMCTSPlayer {
 
     /**
      * Checks if a rollout should end or not
-     *
-     * @param rollerState the current state observation
-     * @param depth       the current depth of the rollout
-     * @return the value in the last reached state
+     * @param rollerState   the current state observation
+     * @param depth     the current depth of the rollout
+     * @return  the value in the last reached state
      */
-    private boolean finishRollout(StateObservation rollerState, int depth) {
-        if (depth >= MCTSRolloutDepth)      //rollout end condition.
+    private boolean finishRollout(StateObservation rollerState, int depth)
+    {
+        if(depth >= MCTSRolloutDepth )      //rollout end condition.
             return true;
         return rollerState.isGameOver();
-    }
-
-    private void advanceState(StateObservation state, Types.ACTIONS action) {
-        state.advance(action);
-        agent.getAgentHeuristic().accumulateHeuristic(state);
     }
 
 

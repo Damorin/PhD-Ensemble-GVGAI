@@ -3,7 +3,6 @@ package EDS_AllActions.voices.olets.withoutHeuristics;
 /**
  * Code written by Adrien Couetoux, acouetoux@ulg.ac.be.
  * Date: 15/12/2015
- *
  * @author Adrien Couëtoux
  */
 
@@ -104,11 +103,10 @@ public class SingleTreeNode {
 
     /**
      * Public constructor for nodes with a parent node
-     *
-     * @param parent      the parent node
-     * @param depth       the tree depth at which the node is added
-     * @param actionIndex the index of the action that was chosen immediately before creating this node
-     * @param tabooBias   the location bias of this node, computed based on the avatar location
+     * @param parent    the parent node
+     * @param depth    the tree depth at which the node is added
+     * @param actionIndex   the index of the action that was chosen immediately before creating this node
+     * @param tabooBias     the location bias of this node, computed based on the avatar location
      */
     public SingleTreeNode(SingleTreeNode parent, int depth, int actionIndex, double tabooBias, int num_actions) {
         this.parent = parent;
@@ -135,17 +133,11 @@ public class SingleTreeNode {
         return (this.nodeDepth);
     }
 
-    public int getActionIndex() {
-        return (this.actionIndex);
-    }
+    public int getActionIndex() { return (this.actionIndex); }
 
-    public int getNbGenerated() {
-        return (this.nbGenerated);
-    }
+    public int getNbGenerated() { return (this.nbGenerated); }
 
-    public void setTabooBias(double tabooBias) {
-        this.tabooBias = tabooBias;
-    }
+    public void setTabooBias(double tabooBias) {this.tabooBias = tabooBias;}
 
     /**
      * Updates nodes attributes in a tree; mostly used to reset number of simulations to 1 to reduce the weight of past
@@ -168,7 +160,7 @@ public class SingleTreeNode {
     }
 
 
-//    public SingleTreeNode uct(StateObservation _currentObservation) {
+//    public SingleTreeNode pessimisticUCT(StateObservation _currentObservation) {
 //        SingleTreeNode selected = null;
 //        double bestValue = -Double.MAX_VALUE;
 //        int selectedIdx = 0;
@@ -271,8 +263,7 @@ public class SingleTreeNode {
     /**
      * Computes the weighted expectimax of a node, minus a location bias to increase the value of nodes in locations that
      * have not been visited often in the past
-     *
-     * @return the weighted expectimax with location bias
+     * @return  the weighted expectimax with location bias
      */
     private double getAdjustedEmaxScore() {
         return (adjEmax + K * Math.sqrt(Math.log(parent.nVisits + 1) / (nVisits + epsilon)) - tabooBias);
@@ -280,9 +271,8 @@ public class SingleTreeNode {
 
     /**
      * Backtracks along the visited branch of the tree, to update the stored data, including the expectimax values
-     *
-     * @param node   the initial node of the backup (usually a tree leaf)
-     * @param result the value measured before back tracking (eg. the score when the simulation ended)
+     * @param node  the initial node of the backup (usually a tree leaf)
+     * @param result    the value measured before back tracking (eg. the score when the simulation ended)
      */
     public void backUp(SingleTreeNode node, double result) {
         SingleTreeNode n = node;
@@ -324,8 +314,7 @@ public class SingleTreeNode {
     /**
      * Selects a child node, from the current node. It currently selects based on an epsilon-greedy, the greedy part
      * being made according to adjusted expectimax values
-     *
-     * @return the selected child node
+     * @return  the selected child node
      */
     public SingleTreeNode selectChild() {
         SingleTreeNode selected = null;
@@ -359,8 +348,7 @@ public class SingleTreeNode {
 
     /**
      * Finds the action that was selected the most times
-     *
-     * @return the most selected action from the current node
+     * @return  the most selected action from the current node
      */
     public int mostVisitedAction() {
         int selected = -1;
@@ -395,8 +383,7 @@ public class SingleTreeNode {
 
     /**
      * Finds the action with the highest cumulative value. Used in case of a tie when comparing the number of simulations
-     *
-     * @return the action with the highest cumulative value.
+     * @return  the action with the highest cumulative value.
      */
     private int bestAction() {
         int selected = -1;
@@ -433,8 +420,7 @@ public class SingleTreeNode {
 
     /**
      * Checks if the current node is fully expanded, i.e. if all actions have been selected at least once.
-     *
-     * @return true if there is an action that has not been tried yet, false otherwise.
+     * @return  true if there is an action that has not been tried yet, false otherwise.
      */
     public boolean notFullyExpanded() {
         for (SingleTreeNode tn : children) {
