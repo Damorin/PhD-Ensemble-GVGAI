@@ -213,7 +213,7 @@ public class SingleTreeNode {
 
     public int bestAction() {
         int selected = -1;
-        double bestValue = -Double.MAX_VALUE;
+        double bestValue = Double.MAX_VALUE;
 
         for (int i = 0; i < children.length; i++) {
 
@@ -221,7 +221,7 @@ public class SingleTreeNode {
                 //double tieBreaker = m_rnd.nextDouble() * epsilon;
                 double childValue = children[i].totValue / (children[i].nVisits + this.epsilon);
                 childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
-                if (childValue > bestValue) {
+                if (childValue < bestValue) {
                     bestValue = childValue;
                     selected = i;
                 }
