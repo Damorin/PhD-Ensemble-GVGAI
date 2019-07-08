@@ -75,28 +75,28 @@ public class ensembleSystemTest {
 //        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
 //        agents.add("COGPaper.ensemble_system.Agent");
 //        agents.add("YOLOBOT.Agent");
-//        agents.add("adrienctx.Agent");
+        agents.add("adrienctx.Agent");
 //        agents.add("ICELab.Agent");
 //        agents.add("YBCriber.Agent");
+//        agents.add("EDS_AllActions.Agent");
 
-        agents.add("EDS_AllActions.Agent");
         // OTHER SETTINGS
-        boolean visuals = true;
+        boolean visuals = false;
         int seed = new Random().nextInt();
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-        String game = games[10][0];
-        String gameName = games[10][1];
-        String level = game.replace(gameName, gameName + "_lvl" + 0);
+//        String game = games[10][0];
+//        String gameName = games[10][1];
+//        String level = game.replace(gameName, gameName + "_lvl" + 0);
 //
 
-        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
+//        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
 
 
         // EXPERIMENT
 
-//        experiment(games, agents, visuals, seed);
+        experiment(games, agents, visuals, seed);
 
     }
 
@@ -113,7 +113,7 @@ public class ensembleSystemTest {
             FileWriter fileWriter = new FileWriter(resultsFile, true);
             fileWriter.write(resultsRow);
 
-            for (int gameId = 14; gameId < games.length; gameId++) { // Need to redo sistersaviour with icelab onwards ICELab onwards Whackamole Chopper
+            for (int gameId = 8; gameId == 8; gameId++) { // Need to redo sistersaviour with icelab onwards ICELab onwards Whackamole Chopper
                 String game = games[gameId][0];
                 String gameName = games[gameId][1];
                 for (String agentToPlay : agents) {
@@ -122,7 +122,7 @@ public class ensembleSystemTest {
                             level = game.replace(gameName, gameName + "_lvl" + j);
                             System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
                             double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
-                            resultsRow = agentToPlay + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                            resultsRow = "adrienctx" + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
                             fileWriter.write(resultsRow);
                         }
                     }
