@@ -75,10 +75,10 @@ public class ensembleSystemTest {
 //        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
 //        agents.add("COGPaper.ensemble_system.Agent");
 //        agents.add("YOLOBOT.Agent");
-        agents.add("adrienctx.Agent");
+//        agents.add("adrienctx.Agent");
 //        agents.add("ICELab.Agent");
 //        agents.add("YBCriber.Agent");
-//        agents.add("EDS_AllActions.Agent");
+        agents.add("EDS_AllActions.Agent");
 
         // OTHER SETTINGS
         boolean visuals = false;
@@ -86,17 +86,17 @@ public class ensembleSystemTest {
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-//        String game = games[10][0];
-//        String gameName = games[10][1];
-//        String level = game.replace(gameName, gameName + "_lvl" + 0);
+        String game = games[10][0];
+        String gameName = games[10][1];
+        String level = game.replace(gameName, gameName + "_lvl" + 0);
 //
 
-//        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
+        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
 
 
         // EXPERIMENT
 
-        experiment(games, agents, visuals, seed);
+//        experiment(games, agents, visuals, seed);
 
     }
 
