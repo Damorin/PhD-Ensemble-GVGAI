@@ -31,6 +31,8 @@ public class Agent extends AbstractPlayer implements Voice {
      * The Monte Carlo Tree Search agent - the core of the algorithm
      */
     public SingleMCTSPlayer mctsPlayer;
+    private StateObservation stateObs;
+    private ElapsedCpuTimer elapsedCpuTimer;
 
     /**
      * Public constructor with state observation and time due.
@@ -65,7 +67,7 @@ public class Agent extends AbstractPlayer implements Voice {
     }
 
     @Override
-    public List<Opinion> performAnalysis(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
+    public List<Opinion> performAnalysis() {
         //Set the state observation object as the new root of the tree.
         mctsPlayer.init(stateObs);
 
@@ -74,5 +76,16 @@ public class Agent extends AbstractPlayer implements Voice {
 
         //... and return it.
         return opinions;
+    }
+
+    @Override
+    public void initializeAnalysis(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
+        this.stateObs = stateObs;
+        this.elapsedCpuTimer = elapsedCpuTimer;
+    }
+
+    @Override
+    public List<Opinion> call() throws Exception {
+        return performAnalysis();
     }
 }

@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class GeneralArbitrator implements Arbitrator {
 
-//    private int ANALYSIS_TIME; // Constant to define the amount of analysis time per voice
+    //    private int ANALYSIS_TIME; // Constant to define the amount of analysis time per voice
     private boolean DEBUG = false;
 
     private List<Voice> voices = new ArrayList<>();
@@ -41,12 +43,25 @@ public class GeneralArbitrator implements Arbitrator {
     public Types.ACTIONS makeDecision(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
         actions = stateObs.getAvailableActions(true);
         opinions.clear();
-        int voiceNumber = 1;
+        List<Future<List<Opinion>>> futures = new ArrayList<>();
+//        int voiceNumber = 1;
         for (Voice voice : voices) {
 //            elapsedCpuTimer.setMaxTimeMillis(ANALYSIS_TIME * voiceNumber);
-//            executorService.submit(voice.performAnalysis(stateObs, elapsedCpuTimer));
-            opinions.addAll(voice.performAnalysis(stateObs, elapsedCpuTimer));
-            voiceNumber++;
+            voice.initializeAnalysis(stateObs, elapsedCpuTimer);
+            Future<List<Opinion>> future = executorService.submit(voice);
+            futures.add(future);
+//            voiceNumber++;
+        }
+        for (Future<List<Opinion>> future : futures) {
+            while (!future.isDone()) {
+            }
+            try {
+                opinions.addAll(future.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
 
         if (DEBUG) {
@@ -54,7 +69,7 @@ public class GeneralArbitrator implements Arbitrator {
         }
         opinions = combineOpinions();
 
-        if(DEBUG) {
+        if (DEBUG) {
             System.out.println("Opinions after combining: " + opinions.size());
         }
 

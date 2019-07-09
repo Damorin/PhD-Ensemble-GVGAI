@@ -78,10 +78,11 @@ public class ensembleSystemTest {
 //        agents.add("adrienctx.Agent");
 //        agents.add("ICELab.Agent");
 //        agents.add("YBCriber.Agent");
-        agents.add("EDS_AllActions.Agent");
+//        agents.add("EDS_AllActions.Agent");
+        agents.add("Concurrent_All_Actions_EDS.Agent");
 
         // OTHER SETTINGS
-        boolean visuals = false;
+        boolean visuals = true;
         int seed = new Random().nextInt();
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";

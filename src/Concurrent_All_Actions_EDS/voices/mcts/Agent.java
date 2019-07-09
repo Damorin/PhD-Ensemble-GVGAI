@@ -24,6 +24,8 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
     public Types.ACTIONS[] actions;
 
     protected SingleMCTSPlayer mctsPlayer;
+    private StateObservation stateObs;
+    private ElapsedCpuTimer elapsedCpuTimer;
 
     /**
      * Public constructor with state observation and time due.
@@ -50,22 +52,8 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
         return new SingleMCTSPlayer(new Random(), num_actions, actions, heuristic);
     }
 
-    /**
-     * Picks an action. This function is called every game step to request an
-     * action from the player.
-     *
-     * @param stateObs     Observation of the current state.
-     * @param elapsedTimer Timer when the action returned is due.
-     * @param analysisTime
-     * @return An action for the current state
-     */
-    public List<Opinion> askOpinion(StateObservation stateObs, ElapsedCpuTimer elapsedTimer, int analysisTime) {
-        return this.performAnalysis(stateObs, elapsedTimer);
-
-    }
-
     @Override
-    public List<Opinion> performAnalysis(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
+    public List<Opinion> performAnalysis() {
 
         // The heuristic is updated if needed
         heuristic.updateHeuristicBasedOnCurrentState(stateObs);
@@ -81,6 +69,18 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
 
     @Override
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+        return null;
+    }
+
+    @Override
+    public void initializeAnalysis(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
+        this.stateObs = stateObs;
+        this.elapsedCpuTimer = elapsedCpuTimer;
+
+    }
+
+    @Override
+    public List<Opinion> call() throws Exception {
         return null;
     }
 }

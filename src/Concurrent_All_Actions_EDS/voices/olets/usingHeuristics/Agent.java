@@ -33,6 +33,8 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
      * The Monte Carlo Tree Search agent - the core of the algorithm
      */
     private final SingleMCTSPlayer mctsPlayer;
+    private StateObservation stateObs;
+    private ElapsedCpuTimer elapsedCpuTimer;
 
     /**
      * Public constructor with state observation and time due.
@@ -80,7 +82,7 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
     }
 
     @Override
-    public List<Opinion> performAnalysis(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
+    public List<Opinion> performAnalysis() {
         // The heuristic is updated if needed
         heuristic.updateHeuristicBasedOnCurrentState(stateObs);
 
@@ -92,5 +94,16 @@ public class Agent extends AbstractHeuristicPlayer implements Voice {
 
         //... and return it.
         return opinions;
+    }
+
+    @Override
+    public void initializeAnalysis(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
+        this.stateObs = stateObs;
+        this.elapsedCpuTimer = elapsedCpuTimer;
+    }
+
+    @Override
+    public List<Opinion> call() throws Exception {
+        return performAnalysis();
     }
 }
