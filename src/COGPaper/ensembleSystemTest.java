@@ -79,7 +79,8 @@ public class ensembleSystemTest {
 //        agents.add("ICELab.Agent");
 //        agents.add("YBCriber.Agent");
 //        agents.add("EDS_AllActions.Agent");
-        agents.add("Concurrent_All_Actions_EDS.Agent");
+//        agents.add("Concurrent_All_Actions_EDS.Agent");
+        agents.add("Concurrent_SingleAction_EDS.Agent");
 
         // OTHER SETTINGS
         boolean visuals = true;

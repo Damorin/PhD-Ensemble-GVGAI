@@ -51,7 +51,7 @@ public class GeneralArbitrator implements Arbitrator {
         }
         opinions = combineOpinions();
 
-        if(DEBUG) {
+        if (DEBUG) {
             System.out.println("Opinions after combining: " + opinions.size());
         }
 
