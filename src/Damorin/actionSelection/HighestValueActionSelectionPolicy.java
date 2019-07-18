@@ -1,6 +1,6 @@
-package Concurrent_All_Actions_EDS.actionSelection;
+package Damorin.actionSelection;
 
-import Concurrent_All_Actions_EDS.voices.Opinion;
+import Damorin.voices.Opinion;
 import ontology.Types;
 
 import java.util.List;
@@ -16,6 +16,8 @@ public class HighestValueActionSelectionPolicy implements ActionSelectionPolicy 
                 best = opinion;
             }
         }
+
+        System.out.println("Action selected: " + best.getAction());
         return best.getAction();
     }
 

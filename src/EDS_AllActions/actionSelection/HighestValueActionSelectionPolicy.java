@@ -10,13 +10,15 @@ public class HighestValueActionSelectionPolicy implements ActionSelectionPolicy 
     @Override
     public Types.ACTIONS selectAction(List<Opinion> opinions) {
 //        displayOpinions(opinions);
-        Opinion best = new Opinion(Types.ACTIONS.ACTION_NIL, Double.MIN_VALUE);
+        Opinion best = new Opinion(Types.ACTIONS.ACTION_NIL, -Double.MAX_VALUE);
 
         for (Opinion opinion : opinions) {
             if (opinion.getValue() > best.getValue()) {
                 best = opinion;
             }
         }
+
+//        System.out.println("Action selected: " + best.getAction());
         return best.getAction();
     }
 

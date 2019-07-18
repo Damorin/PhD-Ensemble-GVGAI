@@ -1,9 +1,9 @@
-package Concurrent_All_Actions_EDS;
+package Damorin;
 
-import Concurrent_All_Actions_EDS.actionSelection.ActionSelectionPolicy;
-import Concurrent_All_Actions_EDS.actionSelection.HighestValueActionSelectionPolicy;
-import Concurrent_All_Actions_EDS.voices.Opinion;
-import Concurrent_All_Actions_EDS.voices.Voice;
+import Damorin.actionSelection.ActionSelectionPolicy;
+import Damorin.actionSelection.HighestValueActionSelectionPolicy;
+import Damorin.voices.Opinion;
+import Damorin.voices.Voice;
 import core.game.StateObservation;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
@@ -12,20 +12,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class GeneralArbitrator implements Arbitrator {
 
-    //    private int ANALYSIS_TIME; // Constant to define the amount of analysis time per voice
+    private int ANALYSIS_TIME; // Constant to define the amount of analysis time per voice
     private boolean DEBUG = false;
 
     private List<Voice> voices = new ArrayList<>();
     private List<Opinion> opinions = new ArrayList<>();
     private List<Types.ACTIONS> actions = new ArrayList<>();
-    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     private ActionSelectionPolicy policy;
 
@@ -36,30 +31,18 @@ public class GeneralArbitrator implements Arbitrator {
     @Override
     public void addVoice(Voice voice) {
         voices.add(voice);
-//        ANALYSIS_TIME = (40 / voices.size()) - 1;
+        ANALYSIS_TIME = (40 / voices.size()) - 1;
     }
 
     @Override
     public Types.ACTIONS makeDecision(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
         actions = stateObs.getAvailableActions(true);
         opinions.clear();
-        List<Future<List<Opinion>>> futures = new ArrayList<>();
-//        int voiceNumber = 1;
+        int voiceNumber = 1;
         for (Voice voice : voices) {
-//            elapsedCpuTimer.setMaxTimeMillis(ANALYSIS_TIME * voiceNumber);
-            voice.initializeAnalysis(stateObs.copy(), elapsedCpuTimer);
-            Future<List<Opinion>> future = executorService.submit(voice);
-            futures.add(future);
-//            voiceNumber++;
-        }
-        for (Future<List<Opinion>> future : futures) {
-            try {
-                opinions.addAll(future.get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            elapsedCpuTimer.setMaxTimeMillis(ANALYSIS_TIME * voiceNumber);
+            opinions.addAll(voice.performAnalysis(stateObs, elapsedCpuTimer));
+            voiceNumber++;
         }
 
         if (DEBUG) {
@@ -71,12 +54,9 @@ public class GeneralArbitrator implements Arbitrator {
             System.out.println("Opinions after combining: " + opinions.size());
         }
 
+        printOpinions();
+
         return policy.selectAction(opinions);
-    }
-
-    @Override
-    public void initializeThreadPool() {
-
     }
 
     private List<Opinion> combineOpinions() {
@@ -99,5 +79,11 @@ public class GeneralArbitrator implements Arbitrator {
             opinionList.add(new Opinion(action, opinionMap.get(action)));
         }
         return opinionList;
+    }
+
+    private void printOpinions() {
+        for (Opinion opinion : opinions) {
+            System.out.println("Action: " + opinion.getAction() + " Value: " + opinion.getValue());
+        }
     }
 }

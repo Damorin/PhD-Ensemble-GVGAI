@@ -24,7 +24,7 @@ public class Agent extends AbstractPlayer {
 //        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.rs.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeDiscoveryHeuristic")));
 //        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeEstimationHeuristic")));
 //        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.Yolobot.Agent(stateObs, elapsedCpuTimer)));
-        ensemble.initialiseThreadPool();
+//        ensemble.initialiseThreadPool();
     }
 
     @Override

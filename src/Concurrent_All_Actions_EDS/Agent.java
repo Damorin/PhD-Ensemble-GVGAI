@@ -14,7 +14,7 @@ public class Agent extends AbstractPlayer {
         decisionSystem.addVoice(new Concurrent_All_Actions_EDS.voices.olets.usingHeuristics.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeExplorationHeuristic"));
 //        decisionSystem.addVoice(new Concurrent_All_Actions_EDS.voices.pessimisticMCTS.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic"));
 //        decisionSystem.addVoice(new Concurrent_All_Actions_EDS.voices.mcts.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic"));
-        decisionSystem.initializeThreadPool();
+//        decisionSystem.initializeThreadPool();
     }
 
     @Override

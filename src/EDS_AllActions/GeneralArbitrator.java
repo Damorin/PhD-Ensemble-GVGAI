@@ -55,6 +55,8 @@ public class GeneralArbitrator implements Arbitrator {
             System.out.println("Opinions after combining: " + opinions.size());
         }
 
+//        printOpinions();
+
         return policy.selectAction(opinions);
     }
 
@@ -78,5 +80,11 @@ public class GeneralArbitrator implements Arbitrator {
             opinionList.add(new Opinion(action, opinionMap.get(action)));
         }
         return opinionList;
+    }
+
+    private void printOpinions() {
+        for (Opinion opinion : opinions) {
+            System.out.println("Action: " + opinion.getAction() + " Value: " + opinion.getValue());
+        }
     }
 }

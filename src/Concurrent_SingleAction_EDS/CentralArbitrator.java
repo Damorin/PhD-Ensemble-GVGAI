@@ -24,7 +24,7 @@ public class CentralArbitrator {
     private List<Opinion> opinions;
     private Random randomGenerator = new Random();
     private List<Types.ACTIONS> actions;
-    private ExecutorService executorService;
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public CentralArbitrator() {
         this.voices = new ArrayList<>();
@@ -34,10 +34,6 @@ public class CentralArbitrator {
 
     public void addVoice(Voice voice) {
         this.voices.add(voice);
-    }
-
-    public void initialiseThreadPool() {
-        executorService = Executors.newFixedThreadPool(voices.size());
     }
 
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
@@ -50,8 +46,6 @@ public class CentralArbitrator {
         }
 
         for (Future<Opinion> future : futures) {
-            while (!future.isDone()) {
-            }
             try {
                 System.out.println(opinions.size());
                 opinions.add(future.get());
