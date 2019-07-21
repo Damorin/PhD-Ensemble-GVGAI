@@ -40,14 +40,13 @@ public class CentralArbitrator {
         opinions.clear();
         List<Future<Opinion>> futures = new ArrayList<>();
         for (Voice voice : voices) {
-            voice.initialiseVoice(stateObs, elapsedTimer);
+            voice.initialiseVoice(stateObs.copy(), elapsedTimer.copy());
             Future<Opinion> future = executorService.submit(voice);
             futures.add(future);
         }
 
         for (Future<Opinion> future : futures) {
             try {
-                System.out.println(opinions.size());
                 opinions.add(future.get());
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -56,6 +55,7 @@ public class CentralArbitrator {
             }
         }
 
+        System.out.println(futures.size());
         return selectHighestValueOpinion().getAction();
 //        return selectRandomOpinion().getAction();
 //        return selectDemocraticOption().getAction();

@@ -19,7 +19,7 @@ public class Agent extends AbstractPlayer {
 
     public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedCpuTimer) {
         ensemble.setAvailableActions(stateObs.getAvailableActions(true));
-//        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic")));
+        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic")));
         ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeExplorationHeuristic")));
 //        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.rs.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeDiscoveryHeuristic")));
 //        ensemble.addVoice((new Concurrent_SingleAction_EDS.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeEstimationHeuristic")));
