@@ -133,7 +133,7 @@ public class SingleMCTSPlayer {
         StateObservation tempState;
         agent.getAgentHeuristic().initHeuristicAccumulation();
 
-        int remainingLimit = 5;
+        int remainingLimit = 7;
         while (remaining > 2 * avgTimeTaken && remaining > remainingLimit) {
             tempState = rootObservation.copy();
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();

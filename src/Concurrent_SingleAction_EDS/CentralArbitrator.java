@@ -55,7 +55,6 @@ public class CentralArbitrator {
             }
         }
 
-        System.out.println(futures.size());
         return selectHighestValueOpinion().getAction();
 //        return selectRandomOpinion().getAction();
 //        return selectDemocraticOption().getAction();
