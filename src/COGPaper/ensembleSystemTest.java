@@ -124,7 +124,7 @@ public class ensembleSystemTest {
                             level = game.replace(gameName, gameName + "_lvl" + j);
                             System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
                             double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
-                            resultsRow = "CCSAEDSOletsExpSc" + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                            resultsRow = "CCAAEDSOletsExpSc" + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
                             fileWriter.write(resultsRow);
                         }
                     }
