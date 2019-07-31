@@ -73,14 +73,14 @@ public class ensembleSystemTest {
 //        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
 //        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
 //        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
-//        agents.add("COGPaper.ensemble_system.Agent");
+        agents.add("COGPaper.ensemble_system.Agent");
 //        agents.add("YOLOBOT.Agent");
 //        agents.add("adrienctx.Agent");
 //        agents.add("ICELab.Agent");
 //        agents.add("YBCriber.Agent");
 //        agents.add("EDS_AllActions.Agent");
 //        agents.add("Concurrent_All_Actions_EDS.Agent");
-        agents.add("Concurrent_SingleAction_EDS.Agent");
+//        agents.add("Concurrent_SingleAction_EDS.Agent");
 
         // OTHER SETTINGS
         boolean visuals = false;
