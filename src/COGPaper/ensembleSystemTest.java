@@ -83,7 +83,7 @@ public class ensembleSystemTest {
 //        agents.add("Concurrent_SingleAction_EDS.Agent");
 
         // OTHER SETTINGS
-        boolean visuals = false;
+        boolean visuals = true;
         int seed = new Random().nextInt();
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
@@ -99,23 +99,22 @@ public class ensembleSystemTest {
         // EXPERIMENT
 
         experiment(games, agents, visuals, seed);
-
     }
 
     private static void experiment(String[][] games, List<String> agents, boolean visuals, int seed) {
-        int experimentRuns = 50;
+        int experimentRuns = 1;
         String recordActionsFile = null;
         String level = null;
 
         String resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
 
         try {
-            File resultsFile = new File("PHD_Experiment_Results.csv");
+            File resultsFile = new File("PHD_Experiment_Results_ICELab2.csv");
             resultsFile.createNewFile();
             FileWriter fileWriter = new FileWriter(resultsFile, true);
             fileWriter.write(resultsRow);
 
-            for (int gameId = 0; gameId < games.length; gameId++) { // Need to redo sistersaviour with icelab onwards ICELab onwards Whackamole Chopper
+            for (int gameId = 31; gameId < games.length; gameId++) {
                 String game = games[gameId][0];
                 String gameName = games[gameId][1];
                 for (String agentToPlay : agents) {
@@ -124,7 +123,7 @@ public class ensembleSystemTest {
                             level = game.replace(gameName, gameName + "_lvl" + j);
                             System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
                             double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
-                            resultsRow = "CCAAEDSOletsExpSc" + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                            resultsRow = "STSAMCTSExpSc" + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
                             fileWriter.write(resultsRow);
                         }
                     }

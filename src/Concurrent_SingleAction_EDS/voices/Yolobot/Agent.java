@@ -226,7 +226,7 @@ return null;
 			if (chosenAction == ACTIONS.ACTION_NIL
 					&& currentSubAgent.Status == SubAgentStatus.POSTPONED) {
 				// Old agent give up!
-				if (elapsedTimer.remainingTimeMillis() > 10) {
+				if (elapsedTimer.remainingTimeMillis() > 15) {
 					// If we have time for another agent run, do so:
 					checkIfAndDoAgentChange();
 					chosenAction = currentSubAgent.act(currentYoloState,

@@ -24,9 +24,10 @@ public class Agent extends AbstractPlayer {
 //        ensemble.addVoice((new COGPaper.ensemble_system.voices.rs.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeDiscoveryHeuristic")));
 //        ensemble.addVoice((new COGPaper.ensemble_system.voices.olets.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.KnowledgeEstimationHeuristic")));
 //        ensemble.addVoice((new COGPaper.ensemble_system.voices.Yolobot.Agent(stateObs, elapsedCpuTimer)));
-//        ensemble.addVoice(new COGPaper.ensemble_system.voices.mcts.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic"));
+        ensemble.addVoice(new COGPaper.ensemble_system.voices.mcts.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeScoreHeuristic"));
+        ensemble.addVoice(new COGPaper.ensemble_system.voices.mcts.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeExplorationHeuristic"));
 //        ensemble.addVoice(new COGPaper.ensemble_system.voices.pessimisticMcts.Agent(stateObs, elapsedCpuTimer, "COGPaper.heuristics.MaximizeExplorationHeuristic"));
-        ensemble.addVoice(new COGPaper.ensemble_system.voices.sampleMCTS.Agent(stateObs, elapsedCpuTimer));
+//        ensemble.addVoice(new COGPaper.ensemble_system.voices.sampleMCTS.Agent(stateObs, elapsedCpuTimer));
     }
 
     @Override
