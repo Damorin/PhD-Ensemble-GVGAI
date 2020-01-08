@@ -50,21 +50,24 @@ public abstract class StateHeuristic {
     public void accumulateHeuristic(StateObservation stateObs) {
         double heuristic_value = evaluateState(stateObs);
 
-        if ((Double.compare(heuristic_value, HUGE_POSITIVE) != 0) && (Double.compare(heuristic_value, heuristic_max) > 0)){
-            heuristic_max = heuristic_value;
-        }
-        if ((Double.compare(heuristic_value, HUGE_NEGATIVE) != 0) && (Double.compare(heuristic_value, heuristic_min) < 0)){
-            heuristic_min = heuristic_value;
+        if (!Double.isNaN(heuristic_value)) {
+            if ((Double.compare(heuristic_value, HUGE_POSITIVE) != 0) && (Double.compare(heuristic_value, heuristic_max) > 0)) {
+                heuristic_max = heuristic_value;
+            }
+            if ((Double.compare(heuristic_value, HUGE_NEGATIVE) != 0) && (Double.compare(heuristic_value, heuristic_min) < 0)) {
+                heuristic_min = heuristic_value;
+            }
+
+            if (Double.compare(heuristic_value, HUGE_POSITIVE) == 0) {
+                extreme_positive = true;
+            } else if (Double.compare(heuristic_value, HUGE_NEGATIVE) == 0) {
+                extreme_negative = true;
+            }
+
+            heuristic_acc += heuristic_value;
+            heuristic_acc_counter += 1;
         }
 
-        if (Double.compare(heuristic_value, HUGE_POSITIVE) == 0) {
-            extreme_positive = true;
-        } else if (Double.compare(heuristic_value, HUGE_NEGATIVE) == 0) {
-            extreme_negative = true;
-        }
-
-        heuristic_acc += heuristic_value;
-        heuristic_acc_counter += 1;
         if (stateObs != null) {
             last_stateObs = stateObs.copy();
         }
