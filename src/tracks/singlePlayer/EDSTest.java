@@ -31,9 +31,9 @@ public class EDSTest {
         // My agents
         String pessimisticMCTS = "pessimisticMCTS.Agent";
         String originalDamorin = "originalDamorin.Agent";
-        String edsRMCTSPair = "EDS_R_MCTSPair.Agent";
-        String edsROletsMCTS = "EDS_R_OLETSMCTS.Agent";
-        String edsRHEAMCTS = "EDS_R_RHEAMCTS.Agent";
+        String edsRMCTSPair = "agents.edsAgents.EDS_R_MCTSPair.Agent";
+        String edsROletsMCTS = "agents.edsAgents.EDS_R_OLETSMCTS.Agent";
+        String edsRHEAMCTS = "agents.edsAgents.EDS_R_RHEAMCTS.Agent";
 
         //Load available games
         String allGamesCollection = "examples/all_games_sp.csv";

@@ -147,7 +147,7 @@ public class Agent extends AbstractPlayer {
     public ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 	ACTIONS currentAction = ACTIONS.ACTION_NIL;
 
-	// respond to surprises by giving adrienctx the control again
+	// respond to surprises by giving agents.competitorAgents.adrienctx the control again
 	if (random.nextDouble() < surpriseProb) {
 	    StateObservation tempState = stateObs.copy();
 	    tempState.advance(pastAction);
@@ -181,7 +181,7 @@ public class Agent extends AbstractPlayer {
 	    }
 	}
 
-	// respond to walking into walls by giving adrienctx the control again
+	// respond to walking into walls by giving agents.competitorAgents.adrienctx the control again
 	if (random.nextDouble() < nonMoveProb && pastAction != ACTIONS.ACTION_USE && pastAction != ACTIONS.ACTION_NIL) {
 	    StateObservation tempState = stateObs.copy();
 	    tempState.advance(pastAction);
@@ -195,7 +195,7 @@ public class Agent extends AbstractPlayer {
 
 	// handling different states of the controller
 	switch (currentState) {
-	// give the control to adrienctx to decide what i gonna do
+	// give the control to agents.competitorAgents.adrienctx to decide what i gonna do
 	case DECIDE_ACTION:
 	    int temp = getNextEmpericalDist(nilDist);
 

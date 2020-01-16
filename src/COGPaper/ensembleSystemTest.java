@@ -21,48 +21,14 @@ public class ensembleSystemTest {
 
         // PATHS
         String gamesPath = "examples/gridphysics/";
-        String controllersPath = "COGPaper.";
         String experimentGamesCollection = "examples/eds_heuristic_experiment_games.csv";
 
         // EXPERIMENT SETUP
-
-        //All available games:
-//        String games[] = new String[]{};
 
         // HEURISTICS
 
         // GAMES
         String[][] games = Utils.readGames(experimentGamesCollection);
-
-//        String games_experiment[] = new String[]{
-//                "aliens",           //0
-//                "bait",             //1
-//                "butterflies",      //2
-//                "camelRace",        //3
-//                "chase",            //4
-//                "chopper",          //5
-//                "crossfire",        //6
-//                "digdug",           //7
-//                "escape",           //8
-//                "hungrybirds",      //9
-//                "infection",        //10
-//                "intersection",     //11
-//                "lemmings",         //12
-//                "missilecommand",   //13
-//                "modality",         //14
-//                "plaqueattack",     //15
-//                "roguelike",        //16
-//                "seaquest",         //17
-//                "survivezombies",   //18
-//                "waitforbreakfast", //19
-//                "decepticoins",     //20
-//                "deceptizelda",     //21
-//                "flower",           //22
-//                "sistersaviour",    //23
-//                "waferthinmints",   //24
-//                "invest"            //25
-//
-//        };
 
         // CONTROLLERS
 
@@ -72,15 +38,16 @@ public class ensembleSystemTest {
 //        agents.add("tracks.singlePlayer.advanced.sampleRHEA.Agent");
 //        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
 //        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
-//        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
-        agents.add("COGPaper.ensemble_system.Agent");
-//        agents.add("YOLOBOT.Agent");
-//        agents.add("adrienctx.Agent");
-//        agents.add("ICELab.Agent");
-//        agents.add("YBCriber.Agent");
-//        agents.add("EDS_AllActions.Agent");
-//        agents.add("Concurrent_All_Actions_EDS.Agent");
-//        agents.add("Concurrent_SingleAction_EDS.Agent");
+        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
+//        agents.add("COGPaper.ensemble_system.Agent");
+//        agents.add("agents.competitorAgents.YOLOBOT.Agent");
+//        agents.add("agents.competitorAgents.adrienctx.Agent");
+//        agents.add("agents.competitorAgents.ICELab.Agent");
+//        agents.add("agents.competitorAgents.YBCriber.Agent");
+//        agents.add("agents.edsAgents.EDS_AllActions.Agent");
+//        agents.add("agents.edsAgents.Concurrent_All_Actions_EDS.Agent");
+//        agents.add("agents.edsAgents.Concurrent_SingleAction_EDS.Agent");
+        agents.add("agents.competitorAgents.ConcurrentSampleMCTS.Agent");
 
         // OTHER SETTINGS
         boolean visuals = true;
@@ -88,17 +55,17 @@ public class ensembleSystemTest {
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
         // TESTS
-        String game = games[10][0];
-        String gameName = games[10][1];
+        String game = games[0][0];
+        String gameName = games[0][1];
         String level = game.replace(gameName, gameName + "_lvl" + 0);
-//
 
 //        ArcadeMachine.runOneGame(game, level, visuals, agents.get(0), null, seed, 0);
+        ArcadeMachine.runOneGame(game, level, visuals, agents.get(1), null, seed, 0);
 
 
         // EXPERIMENT
 
-        experiment(games, agents, visuals, seed);
+//        experiment(games, agents, visuals, seed);
     }
 
     private static void experiment(String[][] games, List<String> agents, boolean visuals, int seed) {
