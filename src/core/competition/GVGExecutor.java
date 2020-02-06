@@ -72,15 +72,29 @@ public class GVGExecutor {
             gameFiles = arg2.split(":");
         else if(arg1.equalsIgnoreCase("-l"))
         {
-            String allLevels[] = arg2.split(";");
-            levelFiles = new ArrayList[allLevels.length];
-            for(int i = 0; i < allLevels.length; ++i)
-            {
-                levelFiles[i] = new ArrayList<>();
-                String levels[] = allLevels[i].split(":");
-                for(String l : levels)
-                    levelFiles[i].add(l);
+
+            if (arg2.equalsIgnoreCase("auto")) {
+                levelFiles = new ArrayList[gameFiles.length];
+                int i = 0;
+                for (String game : gameFiles) {
+                    levelFiles[i] = new ArrayList<>();
+                    for (int n = 0 ; n < 5 ; n++) {
+                        levelFiles[i].add(game.substring(0, game.length()-4) + "_lvl" + n + ".txt");
+                    }
+                    i++;
+                }
+            } else {
+                String allLevels[] = arg2.split(":");
+                levelFiles = new ArrayList[allLevels.length];
+                for(int i = 0; i < allLevels.length; ++i)
+                {
+                    levelFiles[i] = new ArrayList<>();
+                    String levels[] = allLevels[i].split(";");
+                    for(String l : levels)
+                        levelFiles[i].add(l);
+                }
             }
+
         }
         else if(arg1.equalsIgnoreCase("-ag"))
             agent = arg2;
@@ -118,6 +132,8 @@ public class GVGExecutor {
 
         for(int i = 0; i < args.length; i+=2)
             parseParameter(args[i], args[i+1]);
+
+        System.out.println(gameFiles[0] + " " + levelFiles[0]);
 
         //Some checks
         int num_games = gameFiles.length;
@@ -190,7 +206,7 @@ public class GVGExecutor {
 
         }catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
 
