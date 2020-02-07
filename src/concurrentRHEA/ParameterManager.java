@@ -28,6 +28,7 @@ public class ParameterManager {
     }
 
     public void evolve() {
+        System.out.println("Evolving ...");
         if (firstRun) {
             firstRun = false;
             return;

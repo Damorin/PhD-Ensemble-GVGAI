@@ -53,7 +53,7 @@ public class Agent extends AbstractPlayer {
         numEvals = 0;
         acumTimeTakenEval = 0;
         numIters = 0;
-        remaining = timer.remainingTimeMillis();
+        remaining = timer.remainingTimeMillis() - 5;
         NUM_INDIVIDUALS = 0;
         keepIterating = true;
 

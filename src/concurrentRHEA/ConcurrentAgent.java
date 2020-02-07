@@ -16,6 +16,7 @@ import java.util.concurrent.Future;
 public class ConcurrentAgent extends AbstractPlayer {
 
     private static final int N_AGENTS = 8;
+    private static final double EPSILON = 1.0E-6;
 
     private final ExecutorService exec = Executors.newFixedThreadPool(N_AGENTS);
     private final List<Agent> agents;
@@ -55,8 +56,9 @@ public class ConcurrentAgent extends AbstractPlayer {
         double best = -1;
         Agent bestAgent = null;
         for(Agent agent : agents) {
-            if (agent.getBestEvaluation() > best) {
-                best = agent.getBestEvaluation();
+            double eval = agent.getBestEvaluation() + Math.random() * EPSILON;
+            if (eval > best) {
+                best = eval;
                 bestAgent = agent;
                 bestIndex = i;
             }

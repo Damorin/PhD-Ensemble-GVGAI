@@ -64,16 +64,16 @@ public class AgentParameters {
 
     protected AgentParameters mutate() {
         if (RNG.nextBoolean()) {
-            populationSize = populationSize + (RNG.nextInt(populationSize) - populationSize/2)/2;
+            populationSize = populationSize + (RNG.nextBoolean() ? 1 : -1);
         }
         if (RNG.nextBoolean()) {
-            simulationDepth = simulationDepth + (RNG.nextInt(simulationDepth) - simulationDepth / 2) / 2;
+            simulationDepth = simulationDepth + (RNG.nextBoolean() ? 1 : -1);
         }
         if (RNG.nextBoolean()) {
-            discount = discount + (RNG.nextDouble() - 0.5) * 0.01;
+            discount = discount + (RNG.nextBoolean() ? 0.1 : -0.1);
         }
         if (RNG.nextBoolean()) {
-            tournamentSize = tournamentSize + (RNG.nextInt(tournamentSize) - tournamentSize / 2) / 2;
+            tournamentSize = Math.max(3, tournamentSize + (RNG.nextBoolean() ? 1 : -1));
         }
         return this;
     }
