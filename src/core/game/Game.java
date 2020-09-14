@@ -24,6 +24,7 @@ import tools.pathfinder.PathFinder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.util.*;
 
 /**
@@ -971,7 +972,7 @@ public abstract class Game {
 
 		// Update the forward model for the game state sent to the controller.
 		fwdModel.update(this);
-
+		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 		return handleResult();
 	}
 

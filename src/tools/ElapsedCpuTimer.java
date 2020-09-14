@@ -13,19 +13,22 @@ public class ElapsedCpuTimer {
 
     // allows for easy reporting of elapsed time
     ThreadMXBean bean = ManagementFactory.getThreadMXBean();
-    long oldTime;
-    long maxTime;
+    private final long oldTime;
+    private long maxTime;
 
     public ElapsedCpuTimer() {
         oldTime = getTime();
     }
 
+    public ElapsedCpuTimer(long oldTime) {
+        this.oldTime = oldTime;
+    }
+
 
     public ElapsedCpuTimer copy()
     {
-        ElapsedCpuTimer newCpuTimer = new ElapsedCpuTimer();
+        ElapsedCpuTimer newCpuTimer = new ElapsedCpuTimer(this.oldTime);
         newCpuTimer.maxTime = this.maxTime;
-        newCpuTimer.oldTime = this.oldTime;
         newCpuTimer.bean = this.bean;
         return newCpuTimer;
     }
