@@ -13,7 +13,7 @@ public class Playground {
         double totalScore = 0;
         for (int i = 0 ; i < nRounds ; i++) {
             double[] result = ArcadeMachine.runOneGame(
-                    game, level, false, agent, null,
+                    game, level, true, agent, null,
                     (int) (Math.random() * 10000), 0);
 
             String line = game + " " + level + " ";
