@@ -14,76 +14,36 @@ import java.util.Random;
  * Test class for testing the Ensemble Decision System Agent.
  * <p>
  * Created by Damorin on 03/03/17.
+ *
+ * UPDATED 28/09/2020 for new concurrency experiments.
  */
 public class ensembleSystemTest {
     public static void main(String[] args) {
         // SETUP
 
         // PATHS
-        String gamesPath = "examples/gridphysics/";
-        String controllersPath = "COGPaper.";
         String experimentGamesCollection = "examples/eds_heuristic_experiment_games.csv";
 
         // EXPERIMENT SETUP
 
-        //All available games:
-//        String games[] = new String[]{};
-
-        // HEURISTICS
-
         // GAMES
         String[][] games = Utils.readGames(experimentGamesCollection);
-
-//        String games_experiment[] = new String[]{
-//                "aliens",           //0
-//                "bait",             //1
-//                "butterflies",      //2
-//                "camelRace",        //3
-//                "chase",            //4
-//                "chopper",          //5
-//                "crossfire",        //6
-//                "digdug",           //7
-//                "escape",           //8
-//                "hungrybirds",      //9
-//                "infection",        //10
-//                "intersection",     //11
-//                "lemmings",         //12
-//                "missilecommand",   //13
-//                "modality",         //14
-//                "plaqueattack",     //15
-//                "roguelike",        //16
-//                "seaquest",         //17
-//                "survivezombies",   //18
-//                "waitforbreakfast", //19
-//                "decepticoins",     //20
-//                "deceptizelda",     //21
-//                "flower",           //22
-//                "sistersaviour",    //23
-//                "waferthinmints",   //24
-//                "invest"            //25
-//
-//        };
 
         // CONTROLLERS
 
         List<String> agents = new ArrayList<>();
-//        agents.add("tracks.singlePlayer.advanced.olets.Agent");
-//        agents.add("tracks.singlePlayer.simple.sampleonesteplookahead.Agent");
-//        agents.add("tracks.singlePlayer.advanced.sampleRHEA.Agent");
-//        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
-//        agents.add("tracks.singlePlayer.simple.sampleRandom.Agent");
-//        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
-        agents.add("COGPaper.ensemble_system.Agent");
-//        agents.add("YOLOBOT.Agent");
-//        agents.add("adrienctx.Agent");
-//        agents.add("ICELab.Agent");
-//        agents.add("YBCriber.Agent");
+        agents.add("tracks.singlePlayer.advanced.olets.Agent");
+        agents.add("tracks.singlePlayer.advanced.sampleRHEA.Agent");
+        agents.add("tracks.singlePlayer.advanced.sampleRS.Agent");
+        agents.add("tracks.singlePlayer.advanced.sampleMCTS.Agent");
+        agents.add("YOLOBOT.Agent");
+//        agents.add("COGPaper.ensemble_system.Agent");
 //        agents.add("EDS_AllActions.Agent");
 //        agents.add("Concurrent_All_Actions_EDS.Agent");
 //        agents.add("Concurrent_SingleAction_EDS.Agent");
 
         // OTHER SETTINGS
-        boolean visuals = true;
+        boolean visuals = false;
         int seed = new Random().nextInt();
 
         String actionFile = null; //controller+"_actions_" + games[gameIdx] + "_lvl" + levelIdx + "_" + seed + ".txt";
@@ -102,19 +62,19 @@ public class ensembleSystemTest {
     }
 
     private static void experiment(String[][] games, List<String> agents, boolean visuals, int seed) {
-        int experimentRuns = 1;
+        int experimentRuns = 50;
         String recordActionsFile = null;
         String level = null;
 
         String resultsRow = ("AgentName, GameName, Level, Win, Score, Time\n");
 
         try {
-            File resultsFile = new File("PHD_Experiment_Results_ICELab2.csv");
+            File resultsFile = new File("Concurrency_Experiments_ST_Samples.csv");
             resultsFile.createNewFile();
             FileWriter fileWriter = new FileWriter(resultsFile, true);
             fileWriter.write(resultsRow);
 
-            for (int gameId = 31; gameId < games.length; gameId++) {
+            for (int gameId = 0; gameId < games.length; gameId++) {
                 String game = games[gameId][0];
                 String gameName = games[gameId][1];
                 for (String agentToPlay : agents) {
@@ -123,7 +83,7 @@ public class ensembleSystemTest {
                             level = game.replace(gameName, gameName + "_lvl" + j);
                             System.out.println("Running game " + i + " of " + gameName + " with " + agentToPlay);
                             double[] results = ArcadeMachine.runOneGame(game, level, visuals, agentToPlay, recordActionsFile, seed, 0);
-                            resultsRow = "STSAMCTSExpSc" + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
+                            resultsRow = agentToPlay + "," + gameName + ',' + j + ',' + (int) results[0] + ',' + results[1] + ',' + results[2] + '\n';
                             fileWriter.write(resultsRow);
                         }
                     }
